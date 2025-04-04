@@ -1,0 +1,33 @@
+[package]
+name = "isox_host"
+version = "0.1.0"
+authors = ["Steve Strong <steve@id3as.co.uk>"]
+edition = "2021"
+
+[dependencies]
+iovec = "0.1.4"
+libc = "0.2.153"
+libloading = "0.8.1"
+nix = { version = "0.27.1", features = ["process", "socket", "fs", "uio", "signal"] }
+isox_comms = { path = "../isox_comms" }
+mio = { version = "1.0.1", features = [ "os-poll", "os-ext" ] }
+byteorder = "1.5.0"
+uuid = {version = "1.7.0", features = [ "v4", "fast-rng", "macro-diagnostics", ]}
+once_cell = "1.19.0"
+lazy_static = "1.4"
+
+[build-dependencies]
+proc-macro2 = "=1.0.78"
+cbindgen = "0.26.0"
+
+[lib]
+name = "libisox_host"
+crate-type = ["lib", "cdylib"]
+
+[[bin]]
+name = "isox_host"
+path = "src/main.rs"
+
+[[bin]]
+name = "isox_shim"
+path = "src/shim.rs"
